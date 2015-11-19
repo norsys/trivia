@@ -4,10 +4,16 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Game {
+	private static final int PURSE_NUMBER_TO_WIN = 6;
+	private static final int BOARD_GAME_SIZE = 12;
+	private static final int MAXIMUM_PLAYER_NUMBER = 6;
+	private static final int MINIMUM_PLAYER_NUMBER = 2;
+	private static final int QUESTION_POOL_SIZE = 50;
+
 	protected List<String> players = new ArrayList<String>();
-	protected int[] places = new int[6];
-	protected int[] purses = new int[6];
-	protected boolean[] inPenaltyBox = new boolean[6];
+	protected int[] places = new int[MAXIMUM_PLAYER_NUMBER];
+	protected int[] purses = new int[MAXIMUM_PLAYER_NUMBER];
+	protected boolean[] inPenaltyBox = new boolean[MAXIMUM_PLAYER_NUMBER];
 
 	protected List<String> popQuestions = new ArrayList<String>();
 	protected List<String> scienceQuestions = new ArrayList<String>();
@@ -17,7 +23,7 @@ public class Game {
 	protected int currentPlayer = 0;
 
 	public Game() {
-		for (int i = 0; i < 50; i++) {
+		for (int i = 0; i < QUESTION_POOL_SIZE; i++) {
 			popQuestions.add("Pop Question " + i);
 			scienceQuestions.add(("Science Question " + i));
 			sportsQuestions.add(("Sports Question " + i));
@@ -30,12 +36,12 @@ public class Game {
 	}
 
 	public boolean isPlayable() {
-		return players.size() >= 2;
+		return players.size() >= MINIMUM_PLAYER_NUMBER;
 	}
 
 	public void add(String playerName) {
 
-		if (players.size() < 6) {
+		if (players.size() < MAXIMUM_PLAYER_NUMBER) {
 			players.add(playerName);
 
 			System.out.println(playerName + " was added");
@@ -77,7 +83,8 @@ public class Game {
 	}
 
 	private void movePlayer(int roll) {
-		places[currentPlayer] = (places[currentPlayer] + roll) % 12;
+		places[currentPlayer] = (places[currentPlayer] + roll)
+				% BOARD_GAME_SIZE;
 
 		System.out.println(players.get(currentPlayer) + "'s new location is "
 				+ places[currentPlayer]);
@@ -105,7 +112,8 @@ public class Game {
 	}
 
 	private Category currentCategory() {
-		return Category.values()[places[currentPlayer] % 4];
+		return Category.values()[places[currentPlayer]
+				% Category.values().length];
 	}
 
 	public void wasCorrectlyAnswered() {
@@ -130,6 +138,6 @@ public class Game {
 	}
 
 	public boolean isWinner() {
-		return purses[currentPlayer] == 6;
+		return purses[currentPlayer] == PURSE_NUMBER_TO_WIN;
 	}
 }
