@@ -62,22 +62,16 @@ public class GameTest {
 
 		Game game = new Game();
 
-		boolean playerAdded = game.add("Player 1");
-
-		assertTrue(playerAdded);
+		game.add("Player 1");
 
 		assertEquals(1, game.players.size());
 
-		// TODO - BUG : Player datas are shifted : Player 1 => Index 1
-		// TODO - BUG : ArrayIndexOutOfBoundsException when adding player 6th.
 		assertEquals(0, game.places[1]);
 		assertEquals(0, game.purses[1]);
 		assertFalse(game.inPenaltyBox[1]);
 	}
 
-	// TODO - BUG : Player datas are shifted : Player 1 => Index 1
-	// TODO - BUG : ArrayIndexOutOfBoundsException when adding player 6th.
-	@Test(expected = ArrayIndexOutOfBoundsException.class)
+	@Test
 	public void shouldAdd6Players() throws Exception {
 		Game game = new Game();
 
@@ -87,6 +81,39 @@ public class GameTest {
 		game.add("Player 4");
 		game.add("Player 5");
 		game.add("Player 6");
+
+		assertEquals(6, game.players.size());
+	}
+
+	@Test
+	public void shouldNotAdd7Players() throws Exception {
+		Game game = new Game();
+
+		game.add("Player 1");
+		game.add("Player 2");
+		game.add("Player 3");
+		game.add("Player 4");
+		game.add("Player 5");
+		game.add("Player 6");
+		game.add("Player 7");
+
+		assertEquals(6, game.players.size());
+	}
+
+	@Test
+	public void shouldNotRollWithLessThan2Players() throws Exception {
+
+		Game game = new Game();
+		game.add("Player 1");
+
+		game.roll(1);
+
+		assertEquals(0, game.places[0]);
+		assertEquals(50, game.popQuestions.size());
+		assertEquals(50, game.rockQuestions.size());
+		assertEquals(50, game.scienceQuestions.size());
+		assertEquals(50, game.sportsQuestions.size());
+
 	}
 
 	@Test
@@ -94,6 +121,7 @@ public class GameTest {
 
 		Game game = new Game();
 		game.add("Player 1");
+		game.add("Player 2");
 
 		game.roll(1);
 
@@ -109,6 +137,7 @@ public class GameTest {
 
 		Game game = new Game();
 		game.add("Player 1");
+		game.add("Player 2");
 
 		game.roll(2);
 
@@ -124,6 +153,7 @@ public class GameTest {
 
 		Game game = new Game();
 		game.add("Player 1");
+		game.add("Player 2");
 
 		game.roll(3);
 
@@ -139,6 +169,7 @@ public class GameTest {
 
 		Game game = new Game();
 		game.add("Player 1");
+		game.add("Player 2");
 
 		game.roll(4);
 
@@ -154,6 +185,7 @@ public class GameTest {
 
 		Game game = new Game();
 		game.add("Player 1");
+		game.add("Player 2");
 
 		game.roll(5);
 
@@ -169,6 +201,7 @@ public class GameTest {
 
 		Game game = new Game();
 		game.add("Player 1");
+		game.add("Player 2");
 
 		game.roll(6);
 
@@ -184,6 +217,7 @@ public class GameTest {
 
 		Game game = new Game();
 		game.add("Player 1");
+		game.add("Player 2");
 		game.places[0] = 6;
 
 		game.roll(1);
@@ -200,6 +234,7 @@ public class GameTest {
 
 		Game game = new Game();
 		game.add("Player 1");
+		game.add("Player 2");
 		game.places[0] = 6;
 
 		game.roll(2);
@@ -216,6 +251,7 @@ public class GameTest {
 
 		Game game = new Game();
 		game.add("Player 1");
+		game.add("Player 2");
 		game.places[0] = 6;
 
 		game.roll(3);
@@ -232,6 +268,7 @@ public class GameTest {
 
 		Game game = new Game();
 		game.add("Player 1");
+		game.add("Player 2");
 		game.places[0] = 6;
 
 		game.roll(4);
@@ -248,6 +285,7 @@ public class GameTest {
 
 		Game game = new Game();
 		game.add("Player 1");
+		game.add("Player 2");
 		game.places[0] = 6;
 
 		game.roll(5);
@@ -264,6 +302,7 @@ public class GameTest {
 
 		Game game = new Game();
 		game.add("Player 1");
+		game.add("Player 2");
 		game.places[0] = 6;
 
 		game.roll(6);
@@ -280,6 +319,7 @@ public class GameTest {
 
 		Game game = new Game();
 		game.add("Player 1");
+		game.add("Player 2");
 		game.places[0] = 1;
 		game.inPenaltyBox[0] = true;
 
@@ -290,8 +330,6 @@ public class GameTest {
 		assertEquals(50, game.rockQuestions.size());
 		assertEquals(50, game.scienceQuestions.size());
 		assertEquals(49, game.sportsQuestions.size());
-
-		assertTrue(game.isGettingOutOfPenaltyBox);
 	}
 
 	@Test
@@ -299,6 +337,7 @@ public class GameTest {
 
 		Game game = new Game();
 		game.add("Player 1");
+		game.add("Player 2");
 		game.places[0] = 1;
 		game.inPenaltyBox[0] = true;
 
@@ -309,8 +348,6 @@ public class GameTest {
 		assertEquals(50, game.rockQuestions.size());
 		assertEquals(50, game.scienceQuestions.size());
 		assertEquals(50, game.sportsQuestions.size());
-
-		assertFalse(game.isGettingOutOfPenaltyBox);
 	}
 
 	@Test
@@ -318,6 +355,7 @@ public class GameTest {
 
 		Game game = new Game();
 		game.add("Player 1");
+		game.add("Player 2");
 		game.places[0] = 1;
 		game.inPenaltyBox[0] = true;
 
@@ -328,8 +366,6 @@ public class GameTest {
 		assertEquals(50, game.rockQuestions.size());
 		assertEquals(50, game.scienceQuestions.size());
 		assertEquals(50, game.sportsQuestions.size());
-
-		assertTrue(game.isGettingOutOfPenaltyBox);
 	}
 
 	@Test
@@ -337,6 +373,7 @@ public class GameTest {
 
 		Game game = new Game();
 		game.add("Player 1");
+		game.add("Player 2");
 		game.places[0] = 1;
 		game.inPenaltyBox[0] = true;
 
@@ -347,8 +384,6 @@ public class GameTest {
 		assertEquals(50, game.rockQuestions.size());
 		assertEquals(50, game.scienceQuestions.size());
 		assertEquals(50, game.sportsQuestions.size());
-
-		assertFalse(game.isGettingOutOfPenaltyBox);
 	}
 
 	@Test
@@ -356,6 +391,7 @@ public class GameTest {
 
 		Game game = new Game();
 		game.add("Player 1");
+		game.add("Player 2");
 		game.places[0] = 1;
 		game.inPenaltyBox[0] = true;
 
@@ -366,8 +402,6 @@ public class GameTest {
 		assertEquals(50, game.rockQuestions.size());
 		assertEquals(50, game.scienceQuestions.size());
 		assertEquals(49, game.sportsQuestions.size());
-
-		assertTrue(game.isGettingOutOfPenaltyBox);
 	}
 
 	@Test
@@ -375,6 +409,7 @@ public class GameTest {
 
 		Game game = new Game();
 		game.add("Player 1");
+		game.add("Player 2");
 		game.places[0] = 1;
 		game.inPenaltyBox[0] = true;
 
@@ -385,8 +420,6 @@ public class GameTest {
 		assertEquals(50, game.rockQuestions.size());
 		assertEquals(50, game.scienceQuestions.size());
 		assertEquals(50, game.sportsQuestions.size());
-
-		assertFalse(game.isGettingOutOfPenaltyBox);
 	}
 
 	@Test
@@ -394,6 +427,7 @@ public class GameTest {
 
 		Game game = new Game();
 		game.add("Player 1");
+		game.add("Player 2");
 		game.places[0] = 7;
 		game.inPenaltyBox[0] = true;
 
@@ -404,8 +438,6 @@ public class GameTest {
 		assertEquals(50, game.rockQuestions.size());
 		assertEquals(50, game.scienceQuestions.size());
 		assertEquals(50, game.sportsQuestions.size());
-
-		assertTrue(game.isGettingOutOfPenaltyBox);
 	}
 
 	@Test
@@ -413,6 +445,7 @@ public class GameTest {
 
 		Game game = new Game();
 		game.add("Player 1");
+		game.add("Player 2");
 		game.places[0] = 7;
 		game.inPenaltyBox[0] = true;
 
@@ -423,8 +456,6 @@ public class GameTest {
 		assertEquals(50, game.rockQuestions.size());
 		assertEquals(50, game.scienceQuestions.size());
 		assertEquals(50, game.sportsQuestions.size());
-
-		assertFalse(game.isGettingOutOfPenaltyBox);
 	}
 
 	@Test
@@ -432,6 +463,7 @@ public class GameTest {
 
 		Game game = new Game();
 		game.add("Player 1");
+		game.add("Player 2");
 		game.places[0] = 7;
 		game.inPenaltyBox[0] = true;
 
@@ -442,8 +474,6 @@ public class GameTest {
 		assertEquals(50, game.rockQuestions.size());
 		assertEquals(50, game.scienceQuestions.size());
 		assertEquals(49, game.sportsQuestions.size());
-
-		assertTrue(game.isGettingOutOfPenaltyBox);
 	}
 
 	@Test
@@ -451,6 +481,7 @@ public class GameTest {
 
 		Game game = new Game();
 		game.add("Player 1");
+		game.add("Player 2");
 		game.places[0] = 7;
 		game.inPenaltyBox[0] = true;
 
@@ -461,8 +492,6 @@ public class GameTest {
 		assertEquals(50, game.rockQuestions.size());
 		assertEquals(50, game.scienceQuestions.size());
 		assertEquals(50, game.sportsQuestions.size());
-
-		assertFalse(game.isGettingOutOfPenaltyBox);
 	}
 
 	@Test
@@ -470,6 +499,7 @@ public class GameTest {
 
 		Game game = new Game();
 		game.add("Player 1");
+		game.add("Player 2");
 		game.places[0] = 7;
 		game.inPenaltyBox[0] = true;
 
@@ -480,8 +510,6 @@ public class GameTest {
 		assertEquals(50, game.rockQuestions.size());
 		assertEquals(50, game.scienceQuestions.size());
 		assertEquals(50, game.sportsQuestions.size());
-
-		assertTrue(game.isGettingOutOfPenaltyBox);
 	}
 
 	@Test
@@ -489,6 +517,7 @@ public class GameTest {
 
 		Game game = new Game();
 		game.add("Player 1");
+		game.add("Player 2");
 		game.places[0] = 7;
 		game.inPenaltyBox[0] = true;
 
@@ -499,8 +528,30 @@ public class GameTest {
 		assertEquals(50, game.rockQuestions.size());
 		assertEquals(50, game.scienceQuestions.size());
 		assertEquals(50, game.sportsQuestions.size());
+	}
 
-		assertFalse(game.isGettingOutOfPenaltyBox);
+	@Test
+	public void shouldGoToNextPlayer() throws Exception {
+		Game game = new Game();
+		game.add("Player 1");
+		game.add("Player 2");
+		game.currentPlayer = 0;
+
+		game.goToNextPlayer();
+
+		assertEquals(1, game.currentPlayer);
+	}
+
+	@Test
+	public void shouldLoopToFirstPlayer() throws Exception {
+		Game game = new Game();
+		game.add("Player 1");
+		game.add("Player 2");
+		game.currentPlayer = 1;
+
+		game.goToNextPlayer();
+
+		assertEquals(0, game.currentPlayer);
 	}
 
 	@Test
@@ -510,12 +561,9 @@ public class GameTest {
 		game.add("Player 1");
 		game.add("Player 2");
 
-		boolean winner = game.wasCorrectlyAnswered();
+		game.wasCorrectlyAnswered();
 
-		// TODO - BUG - winner = true when no winner...
-		assertTrue(winner);
 		assertEquals(1, game.purses[0]);
-		assertEquals(1, game.currentPlayer);
 	}
 
 	@Test
@@ -526,12 +574,9 @@ public class GameTest {
 		game.add("Player 2");
 		game.currentPlayer = 1;
 
-		boolean winner = game.wasCorrectlyAnswered();
+		game.wasCorrectlyAnswered();
 
-		// TODO - BUG - winner = true when no winner...
-		assertTrue(winner);
 		assertEquals(1, game.purses[1]);
-		assertEquals(0, game.currentPlayer);
 	}
 
 	@Test
@@ -542,12 +587,9 @@ public class GameTest {
 		game.add("Player 2");
 		game.inPenaltyBox[0] = true;
 
-		boolean winner = game.wasCorrectlyAnswered();
+		game.wasCorrectlyAnswered();
 
-		// TODO - BUG - winner = true when no winner...
-		assertTrue(winner);
 		assertEquals(0, game.purses[0]);
-		assertEquals(1, game.currentPlayer);
 	}
 
 	@Test
@@ -559,47 +601,9 @@ public class GameTest {
 		game.currentPlayer = 1;
 		game.inPenaltyBox[1] = true;
 
-		boolean winner = game.wasCorrectlyAnswered();
+		game.wasCorrectlyAnswered();
 
-		// TODO - BUG - winner = true when no winner...
-		assertTrue(winner);
 		assertEquals(0, game.purses[1]);
-		assertEquals(0, game.currentPlayer);
-	}
-
-	@Test
-	public void shouldFirstPlayerAnswerCorrectlyGettingOutPenaltyBox()
-			throws Exception {
-		Game game = new Game();
-		game.add("Player 1");
-		game.add("Player 2");
-		game.inPenaltyBox[0] = true;
-		game.isGettingOutOfPenaltyBox = true;
-
-		boolean winner = game.wasCorrectlyAnswered();
-
-		// TODO - BUG - winner = true when no winner...
-		assertTrue(winner);
-		assertEquals(1, game.purses[0]);
-		assertEquals(1, game.currentPlayer);
-	}
-
-	@Test
-	public void shouldLastPlayerAnswerCorrectlyGettingOutPenaltyBox()
-			throws Exception {
-		Game game = new Game();
-		game.add("Player 1");
-		game.add("Player 2");
-		game.currentPlayer = 1;
-		game.inPenaltyBox[1] = true;
-		game.isGettingOutOfPenaltyBox = true;
-
-		boolean winner = game.wasCorrectlyAnswered();
-
-		// TODO - BUG - winner = true when no winner...
-		assertTrue(winner);
-		assertEquals(1, game.purses[1]);
-		assertEquals(0, game.currentPlayer);
 	}
 
 	@Test
@@ -608,13 +612,10 @@ public class GameTest {
 		game.add("Player 1");
 		game.add("Player 2");
 
-		boolean winner = game.wrongAnswer();
+		game.wrongAnswer();
 
-		// TODO - BUG - winner = true when no winner...
-		assertTrue(winner);
 		assertEquals(0, game.purses[0]);
 		assertTrue(game.inPenaltyBox[0]);
-		assertEquals(1, game.currentPlayer);
 	}
 
 	@Test
@@ -624,28 +625,35 @@ public class GameTest {
 		game.add("Player 2");
 		game.currentPlayer = 1;
 
-		boolean winner = game.wrongAnswer();
+		game.wrongAnswer();
 
-		// TODO - BUG - winner = true when no winner...
-		assertTrue(winner);
 		assertEquals(0, game.purses[1]);
 		assertTrue(game.inPenaltyBox[1]);
-		assertEquals(0, game.currentPlayer);
 	}
 
 	@Test
-	public void shouldAnswerCorrectlyAndWin() throws Exception {
+	public void shouldNotWin() throws Exception {
 		Game game = new Game();
 		game.add("Player 1");
 		game.add("Player 2");
-		game.purses[0] = 5;
+		game.purses[0] = 4;
 
-		boolean winner = game.wasCorrectlyAnswered();
+		boolean winner = game.isWinner();
 
-		// TODO - BUG - winner = false when there is a winner...
 		assertFalse(winner);
-		assertEquals(6, game.purses[0]);
-		assertEquals(1, game.currentPlayer);
+
+	}
+
+	@Test
+	public void shouldWin() throws Exception {
+		Game game = new Game();
+		game.add("Player 1");
+		game.add("Player 2");
+		game.purses[0] = 6;
+
+		boolean winner = game.isWinner();
+
+		assertTrue(winner);
 
 	}
 }
