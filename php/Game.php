@@ -96,7 +96,7 @@ class Game {
 
 	}
 
-	function  askQuestion() {
+	private function  askQuestion() {
 		if ($this->currentCategory() == "Pop")
 			echoln(array_shift($this->popQuestions));
 		if ($this->currentCategory() == "Science")
@@ -108,7 +108,7 @@ class Game {
 	}
 
 
-	function currentCategory() {
+	private function currentCategory() {
 		if ($this->places[$this->currentPlayer] == 0) return "Pop";
 		if ($this->places[$this->currentPlayer] == 4) return "Pop";
 		if ($this->places[$this->currentPlayer] == 8) return "Pop";
@@ -172,7 +172,7 @@ class Game {
 	}
 
 
-	function didPlayerWin() {
+	private function didPlayerWin() {
 		return !($this->purses[$this->currentPlayer] == 6);
 	}
 }
